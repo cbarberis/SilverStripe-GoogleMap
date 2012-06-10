@@ -47,17 +47,18 @@ class GoogleMapsDecorator extends DataObjectDecorator {
 		Requirements::javascript('googlemaps/javascript/googleMapsFrontEnd.js');
 		Requirements::css('googlemaps/css/googleMapsFrontEnd.css');
 		$points = $this->owner->getComponents('GoogleMapsPoits');
-		$jsonPoints = 'var points = [';
-		if($points)  {
+		
+		if(count($points->getIdList()) > 0)  {
+			$jsonPoints = 'var points = [';
 			foreach($points as $point) 
 				$jsonPoints .= '{ID:'.$point->ID.',Lon:'.$point->Lon.',Lat:'.$point->Lat.',Address:"'.$point->Address.'",Popup:"'.$point->Popup.'"},';
 			$jsonPoints = substr($jsonPoints, 0, strlen($jsonPoints)-1);
 			$zoom = ($this->owner->Zoom) ? $this->owner->Zoom : '8';
 			$jsonPoints .= ']; var zoom = ' . $zoom . '; var center = [{Lon:' . $this->owner->LonCenter . ',Lat:' . $this->owner->LatCenter . '}]';
+			
 		} else {
-			$jsonPoints .= '];';
+			$jsonPoints = 'var points = null';
 		}
-		
 		Requirements::customScript($jsonPoints);
 		return '<div id="map_canvas"></div>';
 	}

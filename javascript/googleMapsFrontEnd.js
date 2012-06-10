@@ -1,8 +1,9 @@
 $(document).ready(function() {
-
+	
+	if(!points) return;
 	if(center == 'undefined') mapCenter = new google.maps.LatLng(center.Lat, center.Lon);
 	else mapCenter = new google.maps.LatLng(points[0].Lat, points[0].Lon);
-	
+
 	var myOptions = {
 		zoom: zoom,
 		center: mapCenter,
