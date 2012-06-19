@@ -52,9 +52,11 @@ class GoogleMapsDecorator extends DataObjectDecorator {
 			$jsonPoints = 'var points = [';
 			foreach($points as $point) 
 				$jsonPoints .= '{ID:'.$point->ID.',Lon:'.$point->Lon.',Lat:'.$point->Lat.',Address:"'.$point->Address.'",Popup:"'.$point->Popup.'"},';
+
 			$jsonPoints = substr($jsonPoints, 0, strlen($jsonPoints)-1);
 			$zoom = ($this->owner->Zoom) ? $this->owner->Zoom : '8';
-			$jsonPoints .= ']; var zoom = ' . $zoom . '; var center = [{Lon:' . $this->owner->LonCenter . ',Lat:' . $this->owner->LatCenter . '}]';
+			$center = (!$this->owner->LonCenter || !$this->owner->LatCenter) ? 'var center = [{Lon:' . $points->First()->Lon . ',Lat:' . $points->First()->Lat . '}];' : 'var center = [{Lon:' . $this->owner->LonCenter . ',Lat:' . $this->owner->LatCenter . '}];';
+			$jsonPoints .= ']; var zoom = ' . $zoom . '; ' . $center;
 			
 		} else {
 			$jsonPoints = 'var points = null';
