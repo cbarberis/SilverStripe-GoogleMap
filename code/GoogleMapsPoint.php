@@ -16,6 +16,8 @@ class GoogleMapsPoint extends DataObject {
 		'GoogleMaps' => 'Page'
 	);
 
+	static $default_sort = "\"Address\" Asc";
+
 	function getCMSFields_forPopup() {
 		
 		Requirements::javascript('googlemaps/javascript/googleMapsPointField.js');
