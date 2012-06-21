@@ -1,9 +1,11 @@
 (function($) {
-	
+	var xhr;
 	$('#suggestionsAddress').entwine({
 		loadSuggestions: function(el) {
 			var self = this;
-			$.ajax({
+			if(typeof xhr == 'object') xhr.abort();
+			this.html('loading...');
+			xhr = $.ajax({
 				url: 'googleapi/getSuggestions',
 				type: 'POST',
 				data: 'address=' + el.val(), 
@@ -33,6 +35,7 @@
 					}
 				}
 			});
+			$('#suggestionsAddress').html('Point has been added!');
 			return false;
 		}
 	});
