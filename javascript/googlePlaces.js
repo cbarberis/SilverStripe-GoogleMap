@@ -35,7 +35,7 @@
 					}
 				}
 			});
-			$('#suggestionsAddress').html('Point has been added!');
+			$('#suggestionsAddress').addClass('pointAdded').html('Point has been added!');
 			return false;
 		}
 	});
@@ -43,6 +43,15 @@
 	$("ComplexTableField_Popup_AddForm").entwine({
 		validate: function() {
 			return true;
+		}
+	});
+
+	$('#ComplexTableField_Popup_AddForm_action_saveComplexTableField, #ComplexTableField_Popup_DetailForm_action_saveComplexTableField').entwine({
+		onclick: function() {
+			if($('input[name=Address').val() != '' && $('.pointAdded').length > 0) {
+				alert('the point has not been added correctly, please try again before saving');
+				return false;
+			}
 		}
 	});
 
