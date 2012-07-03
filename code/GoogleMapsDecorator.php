@@ -51,7 +51,7 @@ class GoogleMapsDecorator extends DataObjectDecorator {
 		if(count($points->getIdList()) > 0)  {
 			$jsonPoints = 'var points = [';
 			foreach($points as $point) 
-				$jsonPoints .= '{ID:'.$point->ID.',Lon:'.$point->Lon.',Lat:'.$point->Lat.',Address:"'.$point->Address.'",Popup:"'.$point->Popup.'"},';
+				if($point->Lon && $point->Lat) $jsonPoints .= '{ID:'.$point->ID.',Lon:'.$point->Lon.',Lat:'.$point->Lat.',Address:"'.$point->Address.'",Popup:"'.$point->Popup.'"},';
 
 			$jsonPoints = substr($jsonPoints, 0, strlen($jsonPoints)-1);
 			$zoom = ($this->owner->Zoom) ? $this->owner->Zoom : '8';
