@@ -18,7 +18,8 @@ $(document).ready(function() {
 			map: map
 		});
 		var infowindow = new google.maps.InfoWindow({
-			content: value.Popup
+			content: value.Popup,
+			maxWidth: 200
 		}); 
 		google.maps.event.addListener(marker, 'click', function() {
 			infowindow.open(map,marker);
